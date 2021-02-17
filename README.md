@@ -4,7 +4,7 @@ This is an example about how to deploy an nginx server with terraform, aws and a
 
 ## Pre-requirements:
 
-Terratest uses the Go testing framework. To use Terratest, you need to install:
+To run this code, you need to:
 
 - Install terraform.
 - Configure your aws credentials setting up the env variables: **AWS_ACCESS_KEY_ID**
