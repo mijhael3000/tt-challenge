@@ -1,0 +1,55 @@
+---
+# tasks file for nginx
+
+- name: Add PPA for nginx
+  apt_repository:
+    repo: 'ppa:nginx/stable'
+    state: present
+
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: latest
+    allow_unauthenticated: yes
+
+- name: Enable nginx service
+  service: 
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: Copy nginx configuration.
+  template:
+    src: nginx.conf.j2
+    dest: "{{ nginx_config_dir }}/nginx.conf"
+    mode: 0644
+    validate: nginx -t -c %s
+  notify:
+    - restart nginx
+
+- name: Copy index.html
+  copy: 
+    src: index.html
+    dest: /var/www/html/
+    mode: 0644
+
+- name: Delete default vhost configuration
+  file:
+    path: "{{ nginx_config_dir }}/sites-enabled/default"
+    state: absent
+
+- name: Create vhost config
+  template:
+    src: vhost.j2
+    dest: "{{ nginx_config_dir }}/sites-available/vhost"
+    mode: 0644
+    
+- name: enable vhost
+  file:
+    src: "{{ nginx_config_dir }}/sites-available/vhost"
+    dest: "{{ nginx_config_dir }}/sites-enabled/vhost"
+    state: link
+  notify:
+    - restart nginx
+
+    

@@ -1,0 +1,12 @@
+- hosts: all
+  become: yes
+  vars:
+    nginx_conf_path: /etc/nginx/conf.d
+    nginx_vhost_path: /etc/nginx/sites-enabled
+    nginx_default_vhost_path: /etc/nginx/sites-enabled/default
+    nginx_user:  "www-data"
+    nginx_group: "adm"
+    servername: challenge.true-tickets
+  roles:
+    - nginx
+

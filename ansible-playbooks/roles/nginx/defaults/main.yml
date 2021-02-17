@@ -1,0 +1,14 @@
+---
+# defaults file for nginx
+
+nginx_config_dir: "/etc/nginx"
+nginx_log_dir: "/var/log/nginx"
+
+nginx_user_name: nginx
+nginx_group_name: nginx
+
+#depent of the amount of cores you have on your setup
+nginx_worker_processes: auto
+#depent of the amount of memory
+nginx_worker_connections: 1024
+nginx_listen_port: 80
